@@ -1,0 +1,130 @@
+{% extends "./plantilla.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <h1 class="text-center">Peticiones Asíncronas</h1>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                <i class="fas fa-plus"></i>
+                <b>Agregar Cine</b> 
+            </button>
+            <button type="button" class="btn btn-warning" data-bs-target="modal" data-bs-target="#actualizarModal">
+                <i class="fas fa-refresh"></i>
+                <b>Actualizar Cine </b>
+            </button>
+            
+        </div>
+        <br>
+        <div class="col-md-12" id="contenedor-cine"></div>
+    </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <center><h1 class="modal-title fs-5" id="exampleModalLabel"> Nuevo CINE</h1></center>
+          
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" id="frm_nuevo_cine" method="post">
+            {% csrf_token %}
+            <label for=""><b>Nombre:</b></label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del cine">
+            <br>
+            <label for=""><b>Direccion:</b></label>
+            <input type="text" name="direccion" id="direccion" class="form-control" placeholder="Ingrese la direccion del cine">
+            <br>
+            <label for=""><b>Telefono:</b></label>
+            <input type="number" name="telefono" id="telefono" class="form-control" placeholder="Ingrese el telefono del cine">
+            <hr>
+            <center>
+            <button type="submit" class="btn btn-primary" >
+                <i class="fas fa-save"></i>
+                Guardar
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                <i class="fas fa-times"></i>
+                Cancelar
+            </button>
+            </center>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+
+<script>
+    $("#frm_nuevo_cine").validate({
+        rules:{
+            nombre:{
+                required:true
+            },
+            direccion:{
+                required:true
+            },
+            telefono:{
+                required:true,
+                minlength:10,
+                maxlength:10
+                
+            }
+        },
+        messages:{
+            nombre:{
+                required:"Llene el campo nombre"
+            },
+            direccion:{
+                required:"Llene el campo direccion"
+            },
+            telefono:{
+                required:"Llene el campo porfavor",
+                minlength:"Porfavor ingrese mas de 3 caracteres",
+                maxlength:"Porfavor no pasarse de 10 caracteres"
+            }
+    
+        },
+        submitHandler:function(formulario){
+            $.ajax({
+                url:'{% url "guardarCine" %}',
+                type: 'post',
+                data:$(formulario).serialize(),
+                success:function(data){
+                    console.log(data);
+                    if(data.estado){
+                        Swal.fire({
+                            title:"CONFIRMACIÓN",
+                            text:data.mensaje,
+                            icon: 'success'
+                        });
+                        $("#exampleModal").modal('hide'); 
+                        $(formulario)[0].reset();
+                        cargarCines();
+                    }else{
+                        alert("ERROR :(")
+                    }
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            });
+        }
+    });
+
+    function cargarCines(){
+        $("#contenedor-cine").load('{% url "listadoCines" %}');
+    }
+    cargarCines();
+</script>
+
+{% endblock %}

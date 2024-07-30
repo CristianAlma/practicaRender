@@ -1,0 +1,39 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Pais</b></h3>
+    </div>
+</div>
+<br>
+<table class="table table-bordered table-striped table-hover" id="tbl-pais">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>CONTINENTE</th>
+            <th>CAPITAL</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for paisTemporal in pais %}
+            <tr>
+                <td>{{paisTemporal.id}}</td>
+                <td>{{paisTemporal.nombre}}</td>
+                <td>{{paisTemporal.continente}}</td>
+                <td>{{paisTemporal.capital}}</td>
+                <td>
+                    <a href="{% url 'editarPais' paisTemporal.id %}" class="btn btn-warning">Editar</a>
+                    <a href="#" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar el Genero de forma permanente? ')">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    let table = new DataTable('#tbl-pais');
+</script>
+{% endblock %}
+

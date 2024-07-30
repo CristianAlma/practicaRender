@@ -1,0 +1,51 @@
+<table class="table table-bordered table-striped table-hover" id="tbl-director">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>APELLIDO</th>
+            <th>NOMBRE</th>
+            <th>ESTADO</th>
+            <th>FOTO</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for directorTemporal in directores %}
+            <tr>
+                <td>{{directorTemporal.id}}</td>
+                <td>{{directorTemporal.dni}}</td>
+                <td>{{directorTemporal.apellido}}</td>
+                <td>{{directorTemporal.nombre}}</td>
+                <td>{{directorTemporal.estado}}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{directorTemporal.foto.url}}" alt="Error" height="75px" width="150px">
+                        </button>        
+                        <ul class="dropdown-menu">
+                          <li><a download href="{{directorTemporal.foto.url}}" class="dropdown-item" >Descargar</a></li>
+                          <li><a href="{{directorTemporal.foto.url}}" class="dropdown-item">Ver foto completa</a></li>
+                        </ul>
+                    </div>  
+                </td>
+                <td aling="center">
+                    <a href="#" class="btn btn-outline-warning btn-circle"> <i class="fas fa-pencil"></i></a>
+                    <a href="#" class="btn btn-outline-danger btn-circle" onclick="return confirm('Estas seguro de eliminar el Director de forma permanente? ')"> <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+    let table = new DataTable('#tbl-director');
+</script>
+
+<style>
+    .btn-circle{
+        border-radius:100px !important;
+    }
+</style>
+

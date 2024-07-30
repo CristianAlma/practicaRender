@@ -1,0 +1,40 @@
+<table class="table table-bordered table-striped table-hover" id="tbl-pelicula">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>TITULO</th>
+            <th>DURACION</th>
+            <th>SINOPSIS</th>
+            <th>GENERO</th>
+            <th>DIRECTOR</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for peliculaTemporal in peliculas %}
+            <tr>
+                <td>{{peliculaTemporal.id}}</td>
+                <td>{{peliculaTemporal.titulo}}</td>
+                <td>{{peliculaTemporal.duracion}}</td>
+                <td>{{peliculaTemporal.sinopsis}}</td>
+                <td>{{peliculaTemporal.genero}}</td>
+                <td>{{peliculaTemporal.director}}</td>
+                <td>
+                    <a href="#" class="btn btn-outline-warning btn-circle"> <i class="fas fa-pencil"></i></a>
+                    <a href="#" class="btn btn-outline-danger btn-circle" onclick="return confirm('Estas seguro de eliminar la Pelicula de forma permanente? ')"> <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    let table = new DataTable('#tbl-pelicula');
+</script>
+
+<style>
+    .btn-circle{
+        border-radius:100px !important;
+    }
+</style>
+    

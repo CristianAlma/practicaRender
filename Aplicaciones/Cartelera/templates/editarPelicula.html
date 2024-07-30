@@ -1,0 +1,36 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<center><h1>EDITAR PELICULA</h1></center>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12"></div>
+            <form action="{% url 'procesarActualizacionPelicula' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{peliculaEditar.id}}">
+                <label for="">Titulo:</label>
+                <input type="text" name="titulo" id="titulo" value="{{peliculaEditar.titulo}}" placeholder="Ingrese el nombre del genero" class="form-control">
+                <label for="">Duración:</label>
+                <input type="time" name="duracion" id="duracion" value="{{peliculaEditar.duracion}}" placeholder="Ingrese el nombre del genero" class="form-control">
+                <label for="">Sinopsis:</label>
+                <textarea name="sinopsis" id="sinopsis"  rows="3" class="form-check" placeholder="Ingrese la descripcion del genero">{{peliculaEditar.sinopsis}}</textarea>
+                <label for="">Seleccione el genero de la pelicula:</label>
+                <select  id="genero" name="genero" class="form-control">
+                    {% for genero in generos %}
+                    <option value="{{genero.id}}">{{ genero.nombre }} </option>
+                    {% endfor %}
+                </select>
+                <label for="">Seleccione el director:</label>
+                <select  id="director" name="director" class="form-control">
+                    {% for director in directors %}
+                    <option value="{{director.id}}">{{ director.nombre }} </option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de actualizar el Genero de la pelicula? ')">Guardar</button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'listadoPelicula'%}" class="btn btn-danger">Cancelar</a>
+            </form>
+    </div>
+</div>
+
+{% endblock %}

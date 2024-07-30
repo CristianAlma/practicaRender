@@ -1,0 +1,47 @@
+
+{% extends "./plantilla.html" %}
+{% load static %}
+{% block body %}
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'img/peli2.jpg' %}" alt="No se encontro" class="d-block w-100" alt="..." >
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/hachiko2.png' %}" class="d-block w-100" alt="..."  >
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'img/garfield1.png' %}" class="d-block w-100" alt="..."  >
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+        <center><h2>MISIÓN</h2></center>
+        <p class="form-text" align="justify">
+            Nuestra misión es proporcionar una experiencia cinematográfica única y memorable, ofreciendo una selección variada de películas de alta calidad en un ambiente cómodo y acogedor. Nos comprometemos a brindar un excelente servicio al cliente, innovar continuamente en tecnología y confort, y ser un espacio donde las personas puedan disfrutar y conectarse a través del arte del cine.
+        </p>
+    </div>
+    <div class="col">
+        <center><h2>VISIÓN</h2></center>
+        <p class="form-text" align="justify">
+            Nuestra visión es ser el cine líder en la región, reconocido por su excelencia en programación, innovación tecnológica y compromiso con la comunidad. Aspiramos a ser un referente en la industria cinematográfica, fomentando la cultura y el entretenimiento, y creando un espacio inclusivo donde todos puedan disfrutar de la magia del cine.
+        </p>
+    </div>
+  </div>
+  <hr>
+{% endblock %}

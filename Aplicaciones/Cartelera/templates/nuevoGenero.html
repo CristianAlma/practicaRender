@@ -1,0 +1,66 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'guardarGenero' %}" method="post" enctype="multipart/form-data" id="frm_nuevo_genero">
+                {% csrf_token %}
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre del genero" class="form-control">
+                <br>
+                <label for=""><b>Decripción:</b></label>
+                <textarea name="descripcion" id="descripcion" rows="3" class="form-control" placeholder="Ingrese la descripcion del genero"></textarea>
+                <br>
+                <label for=""><b>Fotografia:</b></label>
+                <input type="file" name="foto" id="foto" accept="image/*" required class="form-control">
+                <br>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de guardar el Genero? ')">Guardar</button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'listadoGeneros'%}" class="btn btn-danger">Cancelar</a>
+            </form>
+    </div>
+</div>
+<script>
+    //document.getElementById('frm_nuevo_genero') otra de llamar al formulario
+    $("#frm_nuevo_genero").validate({
+        rules:{
+            nombre:{
+                required:true,
+                minlength:3,
+                maxlength:10
+            },
+            descripcion:{
+                required:true
+            },
+            foto:{
+                required:true
+            }
+        },
+        messages:{
+            nombre:{
+                required:"Porfavor ingrese el nombre",
+                minlength:"Porfavor ingrese mas de 3 caracteres",
+                maxlength:"Porfavor no pasarse de 10 caracteres"
+            },
+            descripcion:{
+                required:"Campo de Descripcion Obligatorio"
+            },
+            foto:{
+                required:"Porfavor seleccione una foto"
+            }
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#foto").fileinput({                       
+            showBrowse: true,
+            browseOnZoneClick: true            
+        });
+    });
+    </script>
+
+{% endblock %}

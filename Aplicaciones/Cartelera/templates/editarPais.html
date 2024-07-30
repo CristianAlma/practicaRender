@@ -1,0 +1,24 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<center><h1>EDITAR PAIS</h1></center>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12"></div>
+            <form action="{% url 'procesarActualizacionPais' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{paisEditar.id}}">
+                <label for="">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" value="{{paisEditar.nombre}}" placeholder="Ingrese el nombre del pais" class="form-control">
+                <label for="">Continente:</label>
+                <input type="text" name="continente" id="continente" value="{{paisEditar.continente}}" placeholder="Ingrese el continente" class="form-control">
+                <label for="">Capital:</label>
+                <input type="text" name="capital" id="capital" value="{{paisEditar.capital}}" placeholder="Ingrese la capital" class="form-control">
+                <br>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de actualizar el Pais de la pelicula? ')">Actualizar</button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'listadoPais'%}" class="btn btn-danger">Cancelar</a>
+            </form>
+    </div>
+</div>
+
+{% endblock %}

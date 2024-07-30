@@ -1,0 +1,29 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<center><h1>EDITAR DIRECTOR</h1></center>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12"></div>
+            <form action="{% url 'procesarActualizacionDirector' %}" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{directorEditar.id}}">        
+                <label for="">Cedula:</label>
+                <input type="number" name="dni" id="dni" value="{{directorEditar.dni}}" placeholder="Ingrese la cedula" class="form-control">
+                <label for="">Apellido:</label>
+                <input type="text" name="apellido" id="apellido" value="{{directorEditar.apellido}}" placeholder="Ingrese el apellido" class="form-control">
+                <label for="">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" value="{{directorEditar.nombre}}" placeholder="Ingrese el nombre" class="form-control">
+                <label for="">Estado:</label>
+                <input type="checkbox" name="estado" id="estado" value="{{directorEditar.estado}}" > <br>
+                <label for=""><b>Fotografia:</b></label>
+                <input type="file" name="foto" id="foto" accept="image/*" required class="form-control" value="{{directorEditar.foto}}">
+                <br>
+                
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de actualizar el Director de la pelicula? ')">Actualizar</button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'listadoDirector'%}" class="btn btn-danger">Cancelar</a>
+            </form>
+    </div>
+</div>
+
+{% endblock %}

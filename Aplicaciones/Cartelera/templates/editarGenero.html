@@ -1,0 +1,24 @@
+{% extends "./plantilla.html"%}
+{% block body %}
+<center><h1>EDITAR GENERO</h1></center>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form action="{% url 'procesarActualizacionGenero' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" id="id" value="{{generoEditar.id}}">
+                <label for="">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" value="{{generoEditar.nombre}}" placeholder="Ingrese el nombre del genero" class="form-control">
+                <label for="">Decripción:</label>
+                <textarea name="descripcion" id="descripcion"  rows="3" class="form-check" placeholder="Ingrese la descripcion del genero">{{generoEditar.descripcion}}</textarea>
+                <br>
+                <button type="submit" class="btn btn-primary" onclick="return confirm('Estas seguro de actualizar el Genero de la pelicula? ')">Guardar</button>
+                &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'listadoGeneros'%}" class="btn btn-danger">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

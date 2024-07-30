@@ -1,0 +1,163 @@
+{% extends "./plantilla.html" %}
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <h1 class="text-center"> Peticiones Asíncronas</h1>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12 text-end">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                <i class="fas fa-plus"></i>
+                <b>Agregar Director</b> 
+            </button>
+            <button type="button" class="btn btn-warning" data-bs-target="modal" data-bs-target="#actualizarModal">
+                <i class="fas fa-refresh"></i>
+                <b>Actualizar Director </b>
+            </button>
+            
+        </div>
+        <br>
+        <div class="col-md-12" id="contenedor-director"></div>
+    </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <center><h1 class="modal-title fs-5" id="exampleModalLabel"> Nuevo DIRECTOR</h1></center>
+          
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="#" id="frm_nuevo_director" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for=""><b>DNI:</b></label>
+            <input type="number" name="dni" id="dni" class="form-control" placeholder="Ingrese la cedula del director">
+            <br>
+            <label for=""><b>Apellido:</b></label>
+            <input type="text" name="apellido" id="apellido" class="form-control" placeholder="Ingrese la direccion del cine">
+            <br>
+            <br>
+            <label for=""><b>Nombre:</b></label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del director">
+            <br>
+            <label for=""><b>Estado:</b></label>
+            <input type="checkbox" name="estado" id="estado"  placeholder="Ingrese la direccion del cine">
+            <br> <br>
+            <label for=""><b>Fotografia:</b></label>
+            <input type="file" name="foto" id="foto" accept="image/*" required class="form-control">
+            <hr>
+            <center>
+            <button type="submit" class="btn btn-primary" >
+                <i class="fas fa-save"></i>
+                Guardar
+            </button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                <i class="fas fa-times"></i>
+                Cancelar
+            </button>
+            </center>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+
+<script>
+ 
+    
+
+    $("#frm_nuevo_director").validate({
+        rules: {
+            nombre: {
+                required: true
+            },
+            apellido: {
+                required: true
+            },
+            foto: {
+                required: true
+            },
+            dni: {
+                required: true,
+                minlength: 10,
+                maxlength: 10
+            }
+        },
+        messages: {
+            nombre: {
+                required: "Llene el campo nombre"
+            },
+            apellido: {
+                required: "Llene el campo apellido"
+            },
+            foto: {
+                required: "Seleccione una foto"
+            },
+            dni: {
+                required: "Llene el campo por favor",
+                minlength: "Por favor ingrese 10 caracteres",
+                maxlength: "Por favor no pase de 10 caracteres"
+            }
+        },
+        submitHandler: function(formulario) {
+            var formData = new FormData(formulario);
+    
+            fetch('{% url "guardarDirector" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': $('[name=csrfmiddlewaretoken]').val() // Asegura de enviar el token CSRF
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.estado) {
+                    Swal.fire({
+                        title: "CONFIRMACIÓN",
+                        text: data.mensaje,
+                        icon: 'success'
+                    });
+                    $("#exampleModal").modal('hide');
+                    $(formulario)[0].reset();
+                    cargarDirectores();
+                } else {
+                    alert("ERROR :(");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+
+    {% comment %} function cargarDirectores(){
+        $("#contenedor-director").load('{% url "listadoDirectores" %}');
+    } {% endcomment %}
+
+    function cargarDirectores() {
+        fetch('{% url "listadoDirectores" %}')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('contenedor-director').innerHTML = data;
+                // Aquí puedes inicializar plugins de DataTables u otros scripts necesarios
+                let table = new DataTable('#tbl-director'); // Ejemplo de inicialización de DataTable
+            })
+            .catch(error => {
+                console.error('Error al cargar directores:', error);
+            });
+    }
+    
+    cargarDirectores();
+</script>
+
+{% endblock %}

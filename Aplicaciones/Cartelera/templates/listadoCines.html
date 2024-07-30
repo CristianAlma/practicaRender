@@ -1,0 +1,40 @@
+
+
+<table class="table table-bordered table-striped table-hover" id="tbl-cines">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DIRECCION</th>
+            <th>TELEFONO</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for cineTemporal in cines %}
+            <tr>
+                <td>{{cineTemporal.id}}</td>
+                <td>{{cineTemporal.nombre}}</td>
+                <td>{{cineTemporal.direccion}}</td>
+                <td>{{cineTemporal.telefono}}</td>
+                <td align="center">
+                    <a href="#" class="btn btn-outline-warning btn-circle"> <i class="fas fa-pencil"></i></a>
+                    <a href="#" class="btn btn-outline-danger btn-circle" onclick="return confirm('Estas seguro de eliminar el Genero de forma permanente? ')"> <i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    var table = new DataTable('#tbl-cines');
+</script>
+
+<style>
+    .btn-circle{
+        border-radius:100px !important;
+    }
+</style>
+
+
+

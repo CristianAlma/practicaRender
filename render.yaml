@@ -23,4 +23,5 @@ services:
 
 
 
-# set DATABASE_URL=postgresql://david:RkBAp8ZZaE98t5OiwtpfNnJmI0URw2K9@dpg-cqjettqj1k6c739rc1e0-a.oregon-postgres.render.com/dbcine
+
+# set DATABASE_URL=postgresql://cristian:b0S6xY2F8dHzXPNRzPDNX7FBD9EG4PwI@dpg-cqlpki3v2p9s73bfvr70-a.oregon-postgres.render.com/dbcine_zaun
